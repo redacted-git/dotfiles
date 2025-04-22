@@ -1,0 +1,255 @@
+# [redacted] i3 config file
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+#######################
+###    Variables    ###
+#######################
+
+set $mod                             Mod4
+set $smod                            Shift
+set $wm_setting_key_left             Left
+set $wm_setting_key_down             Down
+set $wm_setting_key_up               Up
+set $wm_setting_key_right            Right
+
+set $wm_setting_app_terminal         ghostty
+
+
+########################
+###    Autostarts    ###
+########################
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# Wallpaper
+exec_always --no-startup-id sh ~/.fehbg &
+
+# Start Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Run a window compositor (for effects like transparency or full VSync)
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf -b
+
+# Start Policy Kit
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+# Turn off screensaver
+exec --no-startup-id xset s off -dpms
+
+# Start auto-tiling (see workspace layouts) 
+exec_always --no-startup-id i3-layouts
+
+# Start xborders
+exec --no-startup-id xborders -c ~/.config/xborder/config.json
+
+
+##########################
+###    Applications    ###
+##########################
+
+# Start a terminal emulator
+bindsym $mod+Return exec --no-startup-id $wm_setting_app_terminal
+
+# Start a web browser
+bindsym $mod+$smod+Return exec --no-startup-id flatpak run app.zen_browser.zen
+
+# Start a program launcher
+#bindsym $mod+d exec $wm_setting_app_launcher
+bindsym $mod+space exec --no-startup-id rofi -show drun
+bindsym $mod+Tab exec --no-startup-id rofi -show window
+
+# Toggle Picom
+bindsym $mod+p exec --no-startup-id sh ~/.scripts/picom-toggle.sh &
+
+# Toggle second monitor
+# bindsym $mod+m exec --no-startup-id sh ~/.scripts/second-monitor-toggle.sh &
+
+#Lockscript
+#bindsym $mod+c exec --no-startup-id sh ~/.config/i3/lockscreen.sh &
+
+# Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+# Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
+
+########################
+###    Workspaces    ###
+########################
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1  ""
+set $ws2  ""
+set $ws3  ""
+set $ws4  ""
+set $ws5  ""
+set $ws6  ""
+set $ws7  ""
+set $ws8  ""
+
+# Workspaces monitor assignments
+workspace $ws1 output DP-4
+workspace $ws2 output HDMI-0
+workspace $ws3 output DP-4
+workspace $ws4 output HDMI-0
+workspace $ws5 output DP-4
+workspace $ws6 output HDMI-0
+workspace $ws7 output DP-4
+workspace $ws8 output HDMI-0
+
+# Switch to workspace n
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+
+# Move focused container to workspace n
+bindsym $mod+$smod+1 move container to workspace $ws1
+bindsym $mod+$smod+2 move container to workspace $ws2
+bindsym $mod+$smod+3 move container to workspace $ws3
+bindsym $mod+$smod+4 move container to workspace $ws4
+bindsym $mod+$smod+5 move container to workspace $ws5
+bindsym $mod+$smod+6 move container to workspace $ws6
+bindsym $mod+$smod+7 move container to workspace $ws7
+bindsym $mod+$smod+8 move container to workspace $ws8
+
+# Workspace layouts
+set $i3l autosplit to workspace $ws1
+set $i3l autosplit to workspace $ws2
+set $i3l autosplit to workspace $ws3
+set $i3l autosplit to workspace $ws4
+set $i3l vstack 0.8 to workspace $ws5
+set $i3l autosplit to workspace $ws6
+set $i3l autosplit to workspace $ws7
+set $i3l autosplit to workspace $ws8
+
+# Assign Workspaces:
+assign [class="zen"] $ws2
+assign [class="ghostty"] $ws3
+assign [class="discord"] $ws4
+assign [class="steam"] $ws5
+for_window [class="Spotify"] move container to workspace $ws6
+assign [class="Nemo"] $ws7
+assign [class="vlc"] $ws8
+
+# Alt-Tab through workspaces
+bindsym mod1+Tab workspace next
+
+
+#####################
+###    Windows    ###
+#####################
+
+# Enter fullscreen mode for the focused window
+bindsym $mod+f fullscreen toggle
+
+# Toggle between tiling and floating
+bindsym $mod+$smod+f floating toggle
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Kill the focused window
+bindsym $mod+q kill
+
+# Cange focus
+bindsym $mod+$wm_setting_key_left        focus left
+bindsym $mod+$wm_setting_key_down        focus down
+bindsym $mod+$wm_setting_key_up          focus up
+bindsym $mod+$wm_setting_key_right       focus right
+
+# Alt change focus (Vim style)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+$smod+$wm_setting_key_left  move left
+bindsym $mod+$smod+$wm_setting_key_down  move down
+bindsym $mod+$smod+$wm_setting_key_up    move up
+bindsym $mod+$smod+$wm_setting_key_right move right
+
+# Alt move focused window (Vim style)
+bindsym $mod+$smod+h move left
+bindsym $mod+$smod+j move down
+bindsym $mod+$smod+k move up
+bindsym $mod+$smod+l move right
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+#	These bindings trigger as soon as you enter the resize mode
+
+#	Pressing left will shrink the window’s width.
+#	Pressing right will grow the window’s width.
+#	Pressing up will shrink the window’s height.
+#	Pressing down will grow the window’s height.
+	bindsym $wm_setting_key_left  resize shrink width 10 px or 10 ppt
+	bindsym $wm_setting_key_down  resize grow height 10 px or 10 ppt
+	bindsym $wm_setting_key_up    resize shrink height 10 px or 10 ppt
+	bindsym $wm_setting_key_right resize grow width 10 px or 10 ppt
+
+#	Resize the gap width and height
+	bindsym $smod+$wm_setting_key_left  gaps horizontal minus 5
+	bindsym $smod+$wm_setting_key_down  gaps horizontal plus 5
+	bindsym $smod+$wm_setting_key_up    gaps vertical minus 5
+	bindsym $smod+$wm_setting_key_right gaps vertical plus 5
+
+#	Back to normal: Enter or Escape or $mod+r
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+##################
+###    Gaps    ###
+##################
+
+gaps inner 8
+gaps outer 0
+
+
+#####################
+###    Borders    ###
+#####################
+
+default_border pixel 0
+default_floating_border pixel 0
+#hide_edge_borders on
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #ffc777 #292e42 #ffffff #ffc777   #ffc777
+client.focused_inactive #41a6b5 #292e42 #ffffff #41a6b5   #41a6b5
+client.unfocused        #a9b1d6 #292e42 #888888 #a9b1d6   #a9b1d6
+client.urgent           #F7768E #900000 #ffffff #F7768E   #F7768E
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+
+###########################
+###    Miscellaneous    ###
+###########################
+
+# Set the font used for titlebars (which are hidden)
+font pango:CaskaydiaCove Nerd Font Propo, Regular 14
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+$smod+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
