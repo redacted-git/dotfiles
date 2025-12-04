@@ -42,8 +42,8 @@ exec --no-startup-id xset s off -dpms
 # Start auto-tiling (see workspace layouts) 
 exec_always --no-startup-id i3-layouts
 
-# Start xborders
-exec --no-startup-id xborders -c ~/.config/xborder/config.json
+# Start xborders (NOT USING CURRENTLY)
+# exec --no-startup-id xborders -c ~/.config/xborder/config.json
 
 
 ##########################
@@ -56,18 +56,17 @@ bindsym $mod+Return exec --no-startup-id $wm_setting_app_terminal
 # Start a web browser
 bindsym $mod+$smod+Return exec --no-startup-id flatpak run app.zen_browser.zen
 
-# Start a program launcher
-#bindsym $mod+d exec $wm_setting_app_launcher
-bindsym $mod+space exec --no-startup-id rofi -show drun
-bindsym $mod+Tab exec --no-startup-id rofi -show window
+# Start a program launcher (Rofi)
+bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+bindsym $mod+Tab exec --no-startup-id ~/.config/rofi/launchers/window.sh
 
-# Toggle Picom
+# Toggle Picom (JUST A BACKUP OPTION)
 bindsym $mod+p exec --no-startup-id sh ~/.scripts/picom-toggle.sh &
 
-# Toggle second monitor
+# Toggle second monitor (NO LONGER USED)
 # bindsym $mod+m exec --no-startup-id sh ~/.scripts/second-monitor-toggle.sh &
 
-#Lockscript
+#Lockscript (NO LONGER USED)
 #bindsym $mod+c exec --no-startup-id sh ~/.config/i3/lockscreen.sh &
 
 # Screenshots
@@ -137,6 +136,7 @@ set $i3l autosplit to workspace $ws7
 set $i3l autosplit to workspace $ws8
 
 # Assign Workspaces:
+assign [class="okular"] $ws1
 assign [class="zen"] $ws2
 assign [class="ghostty"] $ws3
 assign [class="discord"] $ws4

@@ -1,0 +1,13 @@
+/**
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Fonts
+ * Iosevka Nerd Font Bold Italic
+ * CaskaydiaCove Nerd Font Mono
+ **/
+
+* {
+    font: "Iosevka Nerd Bold Italic 12";
+}

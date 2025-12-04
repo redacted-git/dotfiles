@@ -1,0 +1,16 @@
+/**
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Fonts
+ *
+ **/
+
+* {
+    font: "CaskaydiaCove Nerd Font Mono 10";
+}
+
+/* {
+    font: "Iosevka Nerd Font 10";
+}
