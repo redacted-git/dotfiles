@@ -10,7 +10,6 @@
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 false;
-    hover-select:               true;
 }
 
 /*****----- Global Properties -----*****/
