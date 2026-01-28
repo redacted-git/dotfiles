@@ -46,9 +46,9 @@ exec_always --no-startup-id i3-layouts
 # exec --no-startup-id xborders -c ~/.config/xborder/config.json
 
 
-##########################
-###    Applications    ###
-##########################
+####################################
+###    Applications/Shortcuts    ###
+####################################
 
 # Start a terminal emulator
 bindsym $mod+Return exec --no-startup-id $wm_setting_app_terminal
@@ -56,18 +56,19 @@ bindsym $mod+Return exec --no-startup-id $wm_setting_app_terminal
 # Start a web browser
 bindsym $mod+$smod+Return exec --no-startup-id flatpak run app.zen_browser.zen
 
-# Start a program launcher (Rofi)
+# Program launcher (Rofi)
 bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+
+# Window switcher (Rofi)
 bindsym $mod+Tab exec --no-startup-id ~/.config/rofi/launchers/window.sh
 
-# Toggle Picom (JUST A BACKUP OPTION)
+# Toggle Picom
+# Just a backup option if Picom crashes. Built into 'gamemode' now.
 bindsym $mod+p exec --no-startup-id sh ~/.scripts/picom-toggle.sh &
 
-# Toggle second monitor (NO LONGER USED)
-# bindsym $mod+m exec --no-startup-id sh ~/.scripts/second-monitor-toggle.sh &
-
-#Lockscript (NO LONGER USED)
-#bindsym $mod+c exec --no-startup-id sh ~/.config/i3/lockscreen.sh &
+# Define Word
+# Highlight word and get a notification definition
+bindsym $mod+d exec --no-startup-id sh ~/.scripts/define.sh &
 
 # Screenshots
 bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
@@ -78,6 +79,17 @@ bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(d
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
+# Pulse Audio Keyboard Controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 
 ########################
@@ -231,7 +243,8 @@ gaps outer 0
 
 default_border pixel 0
 default_floating_border pixel 0
-#hide_edge_borders on
+# smart_borders on
+# hide_edge_borders on
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #ffc777 #292e42 #ffffff #ffc777   #ffc777

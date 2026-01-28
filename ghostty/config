@@ -39,9 +39,11 @@
 
 #background-opacity = 0.9
 
-theme = tokyonight_night
+theme = TokyoNight Night
 
 font-family = "MesloLGS NF"
 
 window-decoration = server
+
+working-directory = inherit
 
