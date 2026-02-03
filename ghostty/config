@@ -47,3 +47,4 @@ window-decoration = server
 
 working-directory = inherit
 
+confirm-close-surface = false 

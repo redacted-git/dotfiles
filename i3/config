@@ -58,6 +58,7 @@ bindsym $mod+$smod+Return exec --no-startup-id flatpak run app.zen_browser.zen
 
 # Program launcher (Rofi)
 bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+bindsym Control+space exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
 
 # Window switcher (Rofi)
 bindsym $mod+Tab exec --no-startup-id ~/.config/rofi/launchers/window.sh
