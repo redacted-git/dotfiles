@@ -254,7 +254,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 ###########################
 
 # Set the font used for titlebars (which are hidden)
-font pango:CaskaydiaCove Nerd Font Propo, Regular 14
+font pango:CaskaydiaCove Nerd Font Propo Regular 14
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$smod+r restart
