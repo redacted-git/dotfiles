@@ -60,6 +60,9 @@ bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher
 # Window switcher (Rofi)
 bindsym $mod+Tab exec --no-startup-id ~/.config/rofi/launchers/window.sh
 
+# XKill Shortcut
+bindsym --release $mod+$smod+x exec xkill
+
 # Toggle Picom
 # Just a backup option if Picom crashes. Built into 'gamemode' now.
 bindsym $mod+p exec --no-startup-id sh ~/.scripts/picom-toggle.sh &
@@ -69,9 +72,9 @@ bindsym $mod+p exec --no-startup-id sh ~/.scripts/picom-toggle.sh &
 bindsym $mod+d exec --no-startup-id sh ~/.scripts/define.sh &
 
 # Screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
 
 # Clipboard Screenshots
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
@@ -152,6 +155,7 @@ assign [class="ghostty"] $ws3
 assign [class="discord"] $ws4
 assign [class="steam"] $ws5
 for_window [class="Spotify"] move container to workspace $ws6
+for_window [class="rhythmbox"] move container to workspace $ws6
 assign [class="Nemo"] $ws7
 assign [class="vlc"] $ws8
 
